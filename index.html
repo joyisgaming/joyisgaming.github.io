@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOY, IS Gaming — Tim Manning's project page</title>
+<meta name="description" content="JOY, IS Gaming — a solo developer's project page. Currently building System Siege RTS, and reviewing games on YouTube.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Audiowide&family=Chakra+Petch:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a href="#top" class="nav__brand">JOY, IS Gaming</a>
+    <nav class="nav__links">
+      <a href="#games">Games</a>
+      <a href="#youtube">YouTube</a>
+    </nav>
+  </div>
+  <div class="recent-bar">
+    <div class="wrap recent-bar__inner">
+      <span class="recent-bar__label">Recent:</span>
+      <div class="recent-bar__items" id="recentItems">
+        <a href="#games" class="recent-pill">Game: System Siege RTS</a>
+        <!-- Video pills are added here by script.js once data/videos.json loads -->
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <span class="badge">Solo dev · project page</span>
+
+      <div class="hero__logo">
+        <!-- Replace with your real logo: assets/logo.png -->
+        <img src="assets/logo.png" alt="JOY, IS Gaming logo" onerror="this.closest('.hero__logo').classList.add('hero__logo--empty')">
+        <div class="hero__logo-fallback">Drop your logo at <code>assets/logo.png</code></div>
+      </div>
+
+      <h1 class="hero__title">Gamer. Solo developer.<br>Making games I like.</h1>
+      <p class="hero__sub">This is JOY, IS Gaming — Tim Manning's project page for whatever I'm building or playing next.</p>
+    </div>
+  </section>
+
+  <!-- ================= GAMES ================= -->
+  <section class="games" id="games">
+    <div class="wrap">
+      <h2 class="section-heading">Games</h2>
+      <p class="section-sub">More on the way.</p>
+
+      <article class="game-card">
+        <div class="game-card__media">
+          <!-- Replace with your real banner: assets/banner.gif -->
+          <img src="assets/banner.gif" alt="System Siege RTS" onerror="this.closest('.game-card__media').classList.add('game-card__media--empty')">
+          <div class="game-card__media-fallback">Drop your banner GIF at <code>assets/banner.gif</code></div>
+        </div>
+
+        <h3 class="sr-only">System Siege RTS</h3>
+
+        <div class="game-card__body">
+          <p class="game-card__tagline">Simplified Real Time Strategy Game with an arcade twist.</p>
+
+          <div class="game-card__copy">
+            <p>Control planets to generate resources. Capture a planet by simply holding a ship in orbit, uncontested, until it changes to your team colour (always orange). Use the resources to increase fleet capacity and build more ships.</p>
+            <p><strong>Destroy all the enemy space stations to win.</strong></p>
+          </div>
+
+          <div class="game-card__ctas">
+            <a href="https://jokesonyouisuck.itch.io/system-siege" class="btn btn--primary">Play Free Web Version</a>
+            <a href="https://jokesonyouisuck.itch.io/system-siege" class="btn btn--primary">Download the Free Windows Version</a>
+            <span class="btn btn--disabled" aria-disabled="true">Get on the Android Store (Coming Soon)</span>
+          </div>
+
+          <ol class="steps">
+            <li><span class="steps__num">01</span><span class="steps__label">Claim orbit</span><span class="steps__desc">Send a ship to hold a contested planet.</span></li>
+            <li><span class="steps__num">02</span><span class="steps__label">Hold the line</span><span class="steps__desc">Stay uncontested until the planet turns orange.</span></li>
+            <li><span class="steps__num">03</span><span class="steps__label">Break their stations</span><span class="steps__desc">Spend your resources, grow the fleet, end the enemy.</span></li>
+          </ol>
+
+          <div class="shots" aria-label="Screenshots — click to zoom">
+            <!-- Replace each with your real screenshots: assets/screenshots/1.png .. 4.png -->
+            <button type="button" class="shots__item"><img src="assets/screenshots/1.png" alt="System Siege RTS screenshot 1" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
+            <button type="button" class="shots__item"><img src="assets/screenshots/2.png" alt="System Siege RTS screenshot 2" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
+            <button type="button" class="shots__item"><img src="assets/screenshots/3.png" alt="System Siege RTS screenshot 3" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
+            <button type="button" class="shots__item"><img src="assets/screenshots/4.png" alt="System Siege RTS screenshot 4" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
+          </div>
+
+          <div class="game-card__footer-row">
+            <p class="game-card__built-with">Built in Godot 4.7</p>
+            <a href="https://jokesonyouisuck.itch.io/system-siege/community" class="btn btn--ghost">Visit the community board</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= YOUTUBE ================= -->
+  <section class="youtube" id="youtube">
+    <div class="wrap">
+      <h2 class="section-heading">Recent YouTubes</h2>
+      <p class="section-sub">2 minute game reviews — because your time matters.</p>
+
+      <article class="yt-card">
+        <div class="yt-card__banner">
+          <!-- Replace with your real channel banner: assets/youtube-banner.png -->
+          <img src="assets/youtube-banner.png" alt="Because Your Time Matters channel banner" onerror="this.closest('.yt-card__banner').classList.add('yt-card__banner--empty')">
+          <div class="yt-card__banner-fallback">Drop your channel banner at <code>assets/youtube-banner.png</code></div>
+        </div>
+
+        <div class="yt-card__body">
+          <div class="video-grid" id="videoGrid">
+            <!-- Video cards are rendered here by script.js from data/videos.json -->
+            <p class="video-grid__empty" id="videoGridEmpty">Videos will appear here after the first sync — see the "Update YouTube videos" GitHub Action.</p>
+          </div>
+          <a href="https://www.youtube.com/@YourTimeMatters" class="btn btn--dark">Subscribe on YouTube</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>JOY, IS Gaming — Tim Manning</p>
+    <p><a href="mailto:JokesOnYouISuck@gmail.com">JokesOnYouISuck@gmail.com</a></p>
+    <p class="footer__copyright">&copy; <span id="year"></span> JOY, IS Gaming</p>
+  </div>
+</footer>
+
+<!-- Screenshot zoom lightbox -->
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="lightbox__close" id="lightboxClose" aria-label="Close zoomed screenshot">&times;</button>
+  <img class="lightbox__img" id="lightboxImg" src="" alt="">
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
