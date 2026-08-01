@@ -22,15 +22,6 @@
       <a href="#youtube">YouTube</a>
     </nav>
   </div>
-  <div class="recent-bar">
-    <div class="wrap recent-bar__inner">
-      <span class="recent-bar__label">Recent:</span>
-      <div class="recent-bar__items" id="recentItems">
-        <a href="#games" class="recent-pill">Game: System Siege RTS</a>
-        <!-- Video pills are added here by script.js once data/videos.json loads -->
-      </div>
-    </div>
-  </div>
 </header>
 
 <main id="main">
@@ -38,68 +29,80 @@
   <!-- ================= HERO ================= -->
   <section class="hero" id="top">
     <div class="wrap">
-      <span class="badge">Solo dev · project page</span>
-
       <div class="hero__logo">
-        <!-- Replace with your real logo: assets/logo.png -->
+        <!-- my logo, wide banner shape -->
         <img src="assets/logo.png" alt="JOY, IS Gaming logo" onerror="this.closest('.hero__logo').classList.add('hero__logo--empty')">
-        <div class="hero__logo-fallback">Drop your logo at <code>assets/logo.png</code></div>
+        <div class="hero__logo-fallback">logo goes at <code>assets/logo.png</code></div>
       </div>
 
-      <h1 class="hero__title">Gamer. Solo developer.<br>Making games I like.</h1>
-      <p class="hero__sub">This is JOY, IS Gaming — Tim Manning's project page for whatever I'm building or playing next.</p>
+      <span class="badge">Project page</span>
+
+      <h1 class="hero__title">Game Dev. Game enjoyer.</h1>
+
+      <div class="recent-bar">
+        <span class="recent-bar__label">Recent:</span>
+        <div class="recent-bar__items" id="recentItems">
+          <a href="#games" class="recent-pill">Game: System Siege RTS</a>
+          <!-- video pills get added here by script.js once videos.json loads -->
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ================= GAMES ================= -->
+  <!--
+    adding a new game later: duplicate the whole <article class="game-card">...</article>
+    block below (keep it inside .game-list), point the asset paths at a new
+    assets/<GameName>/ folder, swap the text/links. full steps in ADD_A_GAME.md
+  -->
   <section class="games" id="games">
     <div class="wrap">
       <h2 class="section-heading">Games</h2>
       <p class="section-sub">More on the way.</p>
 
-      <article class="game-card">
-        <div class="game-card__media">
-          <!-- Replace with your real banner: assets/banner.gif -->
-          <img src="assets/banner.gif" alt="System Siege RTS" onerror="this.closest('.game-card__media').classList.add('game-card__media--empty')">
-          <div class="game-card__media-fallback">Drop your banner GIF at <code>assets/banner.gif</code></div>
-        </div>
+      <div class="game-list">
 
-        <h3 class="sr-only">System Siege RTS</h3>
-
-        <div class="game-card__body">
-          <p class="game-card__tagline">Simplified Real Time Strategy Game with an arcade twist.</p>
-
-          <div class="game-card__copy">
-            <p>Control planets to generate resources. Capture a planet by simply holding a ship in orbit, uncontested, until it changes to your team colour (always orange). Use the resources to increase fleet capacity and build more ships.</p>
-            <p><strong>Destroy all the enemy space stations to win.</strong></p>
+        <!-- ===== System Siege RTS — copy this whole <article> to add the next game ===== -->
+        <article class="game-card">
+          <div class="game-card__media">
+            <!-- banner lives at assets/SystemSiege/banner.png -->
+            <img src="assets/SystemSiege/banner.png" alt="System Siege RTS" onerror="this.closest('.game-card__media').classList.add('game-card__media--empty')">
+            <div class="game-card__media-fallback">banner goes at <code>assets/SystemSiege/banner.png</code></div>
           </div>
 
-          <div class="game-card__ctas">
-            <a href="https://jokesonyouisuck.itch.io/system-siege" class="btn btn--primary">Play Free Web Version</a>
-            <a href="https://jokesonyouisuck.itch.io/system-siege" class="btn btn--primary">Download the Free Windows Version</a>
-            <span class="btn btn--disabled" aria-disabled="true">Get on the Android Store (Coming Soon)</span>
-          </div>
+          <h3 class="sr-only">System Siege RTS</h3>
 
-          <ol class="steps">
-            <li><span class="steps__num">01</span><span class="steps__label">Claim orbit</span><span class="steps__desc">Send a ship to hold a contested planet.</span></li>
-            <li><span class="steps__num">02</span><span class="steps__label">Hold the line</span><span class="steps__desc">Stay uncontested until the planet turns orange.</span></li>
-            <li><span class="steps__num">03</span><span class="steps__label">Break their stations</span><span class="steps__desc">Spend your resources, grow the fleet, end the enemy.</span></li>
-          </ol>
+          <div class="game-card__body">
+            <p class="game-card__tagline">Simplified Real Time Strategy Game with an arcade twist.</p>
 
-          <div class="shots" aria-label="Screenshots — click to zoom">
-            <!-- Replace each with your real screenshots: assets/screenshots/1.png .. 4.png -->
-            <button type="button" class="shots__item"><img src="assets/screenshots/1.png" alt="System Siege RTS screenshot 1" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
-            <button type="button" class="shots__item"><img src="assets/screenshots/2.png" alt="System Siege RTS screenshot 2" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
-            <button type="button" class="shots__item"><img src="assets/screenshots/3.png" alt="System Siege RTS screenshot 3" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
-            <button type="button" class="shots__item"><img src="assets/screenshots/4.png" alt="System Siege RTS screenshot 4" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
-          </div>
+            <div class="game-card__copy">
+              <p>Control planets to generate resources. Capture a planet by simply holding a ship in orbit, uncontested, until it changes to your team colour (always orange). Use the resources to increase fleet capacity and build more ships.</p>
+              <p><strong>Destroy all the enemy space stations to win.</strong></p>
+            </div>
 
-          <div class="game-card__footer-row">
-            <p class="game-card__built-with">Built in Godot 4.7</p>
-            <a href="https://jokesonyouisuck.itch.io/system-siege/community" class="btn btn--ghost">Visit the community board</a>
+            <div class="game-card__ctas">
+              <a href="https://jokesonyouisuck.itch.io/system-siege" class="btn btn--primary">Play Free Web Version</a>
+              <a href="https://jokesonyouisuck.itch.io/system-siege" class="btn btn--primary">Download the Free Windows Version</a>
+              <span class="btn btn--disabled" aria-disabled="true">Get on the Android Store (Coming Soon)</span>
+            </div>
+
+            <div class="shots" aria-label="Screenshots — click to zoom">
+              <!-- screenshots live at assets/SystemSiege/screenshots/1.png .. 4.png -->
+              <button type="button" class="shots__item"><img src="assets/SystemSiege/screenshots/1.png" alt="System Siege RTS screenshot 1" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
+              <button type="button" class="shots__item"><img src="assets/SystemSiege/screenshots/2.png" alt="System Siege RTS screenshot 2" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
+              <button type="button" class="shots__item"><img src="assets/SystemSiege/screenshots/3.png" alt="System Siege RTS screenshot 3" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
+              <button type="button" class="shots__item"><img src="assets/SystemSiege/screenshots/4.png" alt="System Siege RTS screenshot 4" onerror="this.parentElement.classList.add('shots__item--empty')"></button>
+            </div>
+
+            <div class="game-card__footer-row">
+              <p class="game-card__built-with">Built in Godot 4.7</p>
+              <a href="https://jokesonyouisuck.itch.io/system-siege/community" class="btn btn--ghost">Visit the community board</a>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+        <!-- ===== end System Siege RTS ===== -->
+
+      </div>
     </div>
   </section>
 
@@ -111,15 +114,15 @@
 
       <article class="yt-card">
         <div class="yt-card__banner">
-          <!-- Replace with your real channel banner: assets/youtube-banner.png -->
+          <!-- channel banner goes at assets/youtube-banner.png -->
           <img src="assets/youtube-banner.png" alt="Because Your Time Matters channel banner" onerror="this.closest('.yt-card__banner').classList.add('yt-card__banner--empty')">
-          <div class="yt-card__banner-fallback">Drop your channel banner at <code>assets/youtube-banner.png</code></div>
+          <div class="yt-card__banner-fallback">channel banner goes at <code>assets/youtube-banner.png</code></div>
         </div>
 
         <div class="yt-card__body">
           <div class="video-grid" id="videoGrid">
-            <!-- Video cards are rendered here by script.js from data/videos.json -->
-            <p class="video-grid__empty" id="videoGridEmpty">Videos will appear here after the first sync — see the "Update YouTube videos" GitHub Action.</p>
+            <!-- filled in by script.js from data/videos.json -->
+            <p class="video-grid__empty" id="videoGridEmpty">nothing synced yet — run the video-fetch action once, this'll fill in after</p>
           </div>
           <a href="https://www.youtube.com/@YourTimeMatters" class="btn btn--dark">Subscribe on YouTube</a>
         </div>
@@ -130,14 +133,14 @@
 </main>
 
 <footer class="footer">
-  <div class="wrap">
+  <div class="wrap footer__inner">
     <p>JOY, IS Gaming — Tim Manning</p>
     <p><a href="mailto:JokesOnYouISuck@gmail.com">JokesOnYouISuck@gmail.com</a></p>
     <p class="footer__copyright">&copy; <span id="year"></span> JOY, IS Gaming</p>
   </div>
 </footer>
 
-<!-- Screenshot zoom lightbox -->
+<!-- screenshot zoom lightbox -->
 <div class="lightbox" id="lightbox" hidden>
   <button type="button" class="lightbox__close" id="lightboxClose" aria-label="Close zoomed screenshot">&times;</button>
   <img class="lightbox__img" id="lightboxImg" src="" alt="">
