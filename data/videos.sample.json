@@ -1,0 +1,42 @@
+[
+  {
+    "id": "sample01",
+    "title": "Voidwrought - 2 Minute Review",
+    "url": "https://www.youtube.com/@YourTimeMatters",
+    "thumbnail": "https://placehold.co/480x360/141F38/e9ca46?text=Voidwrought",
+    "description": "Voidwrought is a gorgeous roguelike deckbuilder set in a crumbling star system. Card synergies are clever, the pixel art is gorgeous, and the orbit-decay mechanic forces some genuinely tough calls run after run. Strong recommend if you like your deckbuilders with some real bite to the difficulty curve.",
+    "published": "2026-07-20T12:00:00+00:00"
+  },
+  {
+    "id": "sample02",
+    "title": "Mario Kart World - 2 Minute Review",
+    "url": "https://www.youtube.com/@YourTimeMatters",
+    "thumbnail": "https://placehold.co/480x360/141F38/e9ca46?text=Mario+Kart+World",
+    "description": "The open-world format is a bigger swing than I expected, and mostly it pays off. Traversal between tracks is a genuine joy, the roster is stacked, and it still feels like Mario Kart at its core even with the new structure layered on top.",
+    "published": "2026-07-10T12:00:00+00:00"
+  },
+  {
+    "id": "sample03",
+    "title": "Balatro - 2 Minute Review",
+    "url": "https://www.youtube.com/@YourTimeMatters",
+    "thumbnail": "https://placehold.co/480x360/141F38/e9ca46?text=Balatro",
+    "description": "Poker hands as a deckbuilding engine sounds like it shouldn't work this well, but here we are. Simple to learn, brutally hard to put down, and the joker synergies keep escalating in ways that still surprise me dozens of runs in.",
+    "published": "2026-06-28T12:00:00+00:00"
+  },
+  {
+    "id": "sample04",
+    "title": "Hades II (Early Access) - 2 Minute Review",
+    "url": "https://www.youtube.com/@YourTimeMatters",
+    "thumbnail": "https://placehold.co/480x360/141F38/e9ca46?text=Hades+II",
+    "description": "Melinoe's kit already feels distinct from Zagreus, the witch-craft systems add a real second layer of build variety, and the boss fights so far hit just as hard as the original. Early access, but already worth your time.",
+    "published": "2026-06-15T12:00:00+00:00"
+  },
+  {
+    "id": "sample05",
+    "title": "Clair Obscur: Expedition 33 - 2 Minute Review",
+    "url": "https://www.youtube.com/@YourTimeMatters",
+    "thumbnail": "https://placehold.co/480x360/141F38/e9ca46?text=Clair+Obscur",
+    "description": "Turn-based combat with real-time dodge and parry windows shouldn't feel this tense, but it does. The art direction alone is worth the price of admission, and the story swings for the fences in a way most big-budget RPGs don't dare to anymore.",
+    "published": "2026-05-30T12:00:00+00:00"
+  }
+]

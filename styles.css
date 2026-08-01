@@ -4,7 +4,6 @@
 :root{
   /* studio shell (JOY, IS Gaming brand) */
   --yellow: #e9ca46;
-  --yellow-dot: #d9b93a;
   --ink: #111111;
   --paper: #ffffff;
   --muted: #4a4238;
@@ -29,9 +28,12 @@ html{ scroll-behavior: smooth; }
 
 body{
   margin:0;
-  background: var(--yellow);
-  background-image: radial-gradient(var(--yellow-dot) 1.5px, transparent 1.5px);
-  background-size: 22px 22px;
+  background-color: var(--yellow);
+  background-image:
+    radial-gradient(rgba(17,17,17,.10) 2px, transparent 2px),
+    radial-gradient(rgba(17,17,17,.10) 2px, transparent 2px);
+  background-size: 20px 20px, 20px 20px;
+  background-position: 0 0, 10px 10px;
   color: var(--ink);
   font-family: var(--font-brand);
   line-height: 1.6;
@@ -64,19 +66,6 @@ a{ color: inherit; }
 /* =============================================================
    SHARED
    ============================================================= */
-.badge{
-  display:inline-block;
-  font-weight:700;
-  font-size: .8rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--yellow);
-  background: var(--ink);
-  padding: 8px 22px;
-  border-radius: 999px;
-  margin-bottom: 24px;
-}
-
 .section-heading{
   font-family: var(--font-brand);
   font-weight:700;
@@ -172,81 +161,91 @@ a{ color: inherit; }
    RECENT BAR
    ============================================================= */
 .recent-bar{
-  background: var(--ink);
-  overflow-x:auto;
-}
-.recent-bar__inner{
-  display:flex; align-items:center; gap: 14px;
-  padding: 10px 0;
-  white-space: nowrap;
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+  gap: 10px 12px;
+  margin-top: 36px;
 }
 .recent-bar__label{
   font-weight:700;
   font-size: .82rem;
   letter-spacing: 1px;
   text-transform:uppercase;
-  color: var(--yellow);
-  flex-shrink:0;
+  color: var(--ink);
 }
 .recent-bar__items{
-  display:flex; gap: 10px;
-  overflow-x:auto;
+  display:flex; flex-wrap:wrap; justify-content:center;
+  gap: 10px;
 }
 .recent-pill{
-  flex-shrink:0;
   font-size: .82rem;
   font-weight:700;
-  color: var(--paper);
+  color: var(--ink);
   text-decoration:none;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.25);
+  background: transparent;
+  border: 2px solid var(--ink);
   border-radius: 999px;
   padding: 6px 16px;
-  transition: background .2s ease;
+  transition: background .2s ease, color .2s ease;
 }
-.recent-pill:hover{ background: rgba(255,255,255,.18); }
+.recent-pill:hover{ background: var(--ink); color: var(--yellow); }
 
 /* =============================================================
    HERO
    ============================================================= */
 .hero{
-  padding: 56px 0 64px;
+  padding: 48px 0 56px;
   text-align:center;
 }
 .hero__logo{
-  max-width: 240px;
-  margin: 0 auto 28px;
+  max-width: 100%;
+  margin: 0 auto;
+  border: 5px solid var(--ink);
+  border-radius: 8px;
+  overflow:hidden;
+  line-height:0;
+  background: var(--paper);
 }
+.hero__logo img{ width:100%; }
 .hero__logo-fallback{ display:none; }
 .hero__logo--empty img{ display:none; }
 .hero__logo--empty .hero__logo-fallback{
   display:block;
   padding: 36px 20px;
-  border: 4px solid var(--ink);
-  border-radius: 14px;
-  background: var(--paper);
   color: var(--muted);
   font-size: .85rem;
+}
+
+.badge{
+  display:inline-block;
+  font-weight:700;
+  font-size: .8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--yellow);
+  background: var(--ink);
+  padding: 8px 22px;
+  border-radius: 999px;
+  margin: 24px 0 20px;
 }
 
 .hero__title{
   font-family: var(--font-brand);
   font-weight:700;
-  font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+  font-size: clamp(2rem, 5vw, 3rem);
   line-height:1.15;
-  margin: 0 0 18px;
-}
-.hero__sub{
-  color: var(--muted);
-  font-size: 1.1rem;
-  max-width: 480px;
-  margin: 0 auto;
+  margin: 0;
 }
 
 /* =============================================================
    GAMES SECTION + GAME CARD (System Siege RTS's own identity)
    ============================================================= */
 .games{ padding: 20px 0 64px; text-align:center; }
+
+.game-list{
+  display:flex;
+  flex-direction:column;
+  gap: 48px;
+}
 
 .game-card{
   text-align:left;
@@ -284,43 +283,9 @@ a{ color: inherit; }
 .game-card__copy p{ margin: 0 0 12px; font-family: var(--font-brand); font-size: 1rem; }
 
 .game-card__ctas{
-  display:flex; flex-wrap:wrap; gap: 16px;
+  display:flex; flex-wrap:wrap; justify-content:center; gap: 16px;
   margin: 24px 0 36px;
-}
-
-.steps{
-  list-style:none;
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin: 0 0 32px;
-  padding:0;
-}
-.steps li{
-  background: var(--game-panel);
-  border: 1px solid rgba(102,153,230,.25);
-  border-radius: 12px;
-  padding: 18px;
-}
-.steps__num{
-  display:block;
-  font-weight:700;
-  color: var(--game-orange);
-  font-size: .9rem;
-  letter-spacing:1px;
-  margin-bottom: 6px;
-}
-.steps__label{
-  display:block;
-  font-weight:600;
-  font-size: 1rem;
-  margin-bottom: 4px;
-}
-.steps__desc{
-  display:block;
-  font-family: var(--font-brand);
-  color: var(--game-muted);
-  font-size: .88rem;
+  text-align:center;
 }
 
 .shots{
@@ -414,8 +379,9 @@ a{ color: inherit; }
   border: 2px solid var(--ink);
   border-radius: 12px;
   overflow:hidden;
-  background: var(--paper);
+  background: #f7f5ee;
   transition: transform .15s ease;
+  scroll-margin-top: 90px;
 }
 .video-card:hover{ transform: translateY(-3px); }
 .video-card__thumb{
@@ -427,25 +393,36 @@ a{ color: inherit; }
 }
 .video-card__thumb img{ width:100%; height:100%; object-fit:cover; }
 .video-card__title{
-  padding: 12px 14px;
-  font-size: .92rem;
+  padding: 12px 14px 4px;
+  font-size: .95rem;
   font-weight:700;
   line-height:1.35;
+}
+.video-card__desc{
+  padding: 0 14px 14px;
+  font-size: .85rem;
+  line-height:1.5;
+  color: var(--muted);
 }
 
 /* =============================================================
    FOOTER
    ============================================================= */
 .footer{
-  text-align:center;
-  padding: 40px 0 52px;
+  padding: 24px 0;
   background: var(--ink);
   color: #c9c2b4;
   font-size: .85rem;
 }
-.footer p{ margin: 0 0 8px; }
+.footer__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 16px;
+}
+.footer p{ margin:0; }
 .footer a{ color: var(--yellow); }
-.footer__copyright{ margin-top: 14px; opacity:.7; }
+.footer__copyright{ opacity:.7; text-align:right; }
 
 /* =============================================================
    LIGHTBOX
@@ -478,7 +455,6 @@ a{ color: inherit; }
    RESPONSIVE
    ============================================================= */
 @media (max-width: 720px){
-  .steps{ grid-template-columns: 1fr; }
   .shots{ grid-template-columns: repeat(2, 1fr); }
   .video-grid{ grid-template-columns: 1fr; }
   .nav__links{ gap:18px; }
@@ -486,6 +462,8 @@ a{ color: inherit; }
   .game-card__ctas .btn{ text-align:center; }
   .game-card__footer-row{ flex-direction:column; align-items:flex-start; }
   .btn{ padding: 16px 30px; }
+  .footer__inner{ flex-direction:column; text-align:center; }
+  .footer__copyright{ text-align:center; }
 }
 
 /* =============================================================

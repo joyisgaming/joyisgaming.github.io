@@ -1,10 +1,10 @@
 """
-Fetch the channel's YouTube RSS feed and write the latest videos to
-data/videos.json as plain JSON, so the static site can load them with a
-same-origin fetch() at page-load time (no CORS issues, no API key).
+grabs my youtube channel's rss feed and dumps the latest videos into
+data/videos.json so the site can just fetch() it - no api key, no
+third-party proxy, nothing to pay for or lose access to.
 
-Run manually with: python3 scripts/fetch_videos.py
-Normally run on a schedule by .github/workflows/update-videos.yml
+run it by hand with: python3 scripts/fetch_videos.py
+normally it just runs on a schedule via .github/workflows/update-videos.yml
 """
 
 import json
@@ -15,6 +15,7 @@ from pathlib import Path
 CHANNEL_ID = "UCNEmdbYto0aNkmrDfDStxbA"  # @YourTimeMatters
 FEED_URL = f"https://www.youtube.com/feeds/videos.xml?channel_id={CHANNEL_ID}"
 MAX_VIDEOS = 6
+DESCRIPTION_LIMIT = 300
 OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "videos.json"
 
 NS = {
@@ -22,6 +23,39 @@ NS = {
     "yt": "http://www.youtube.com/xml/schemas/2015",
     "media": "http://search.yahoo.com/mrss/",
 }
+
+# every video description starts with the same promo blurb about the game -
+# strip that (and the blank/dot separator lines under it) so only the actual
+# per-video text shows up on the site
+PROMO_ANCHOR = "jokesonyouisuck.itch.io/system-siege"
+
+
+def strip_promo(description: str) -> str:
+    if not description:
+        return ""
+    idx = description.lower().find(PROMO_ANCHOR.lower())
+    if idx == -1:
+        return description.strip()
+
+    rest = description[idx + len(PROMO_ANCHOR):]
+    lines = rest.splitlines()
+
+    i = 0
+    while i < len(lines) and lines[i].strip() in ("", "."):
+        i += 1
+
+    return "\n".join(lines[i:]).strip()
+
+
+def truncate(text: str, limit: int = DESCRIPTION_LIMIT) -> str:
+    text = text.strip()
+    if len(text) <= limit:
+        return text
+    cut = text[:limit]
+    last_space = cut.rfind(" ")
+    if last_space > 0:
+        cut = cut[:last_space]
+    return cut.rstrip() + "…"
 
 
 def fetch_feed(url: str) -> bytes:
@@ -45,16 +79,24 @@ def parse_feed(xml_bytes: bytes) -> list[dict]:
 
         video_id = video_id_el.text
         thumbnail_url = f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
+        raw_description = ""
         if media_group is not None:
             thumb_el = media_group.find("media:thumbnail", NS)
             if thumb_el is not None and "url" in thumb_el.attrib:
                 thumbnail_url = thumb_el.attrib["url"]
+
+            desc_el = media_group.find("media:description", NS)
+            if desc_el is not None and desc_el.text:
+                raw_description = desc_el.text
+
+        description = truncate(strip_promo(raw_description))
 
         videos.append({
             "id": video_id,
             "title": title_el.text,
             "url": f"https://www.youtube.com/watch?v={video_id}",
             "thumbnail": thumbnail_url,
+            "description": description,
             "published": published_el.text if published_el is not None else None,
         })
 
@@ -67,7 +109,7 @@ def main():
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(videos, indent=2), encoding="utf-8")
-    print(f"Wrote {len(videos)} videos to {OUTPUT_PATH}")
+    print(f"wrote {len(videos)} videos to {OUTPUT_PATH}")
 
 
 if __name__ == "__main__":
