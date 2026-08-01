@@ -16,3 +16,4 @@ it's fine to push before everything's in place.
 optional:
   assets/favicon.png   - if I add one, also add this to <head> in index.html:
                           <link rel="icon" href="assets/favicon.png">
+
