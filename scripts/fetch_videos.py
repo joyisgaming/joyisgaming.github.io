@@ -15,7 +15,7 @@ from pathlib import Path
 CHANNEL_ID = "UCNEmdbYto0aNkmrDfDStxbA"  # @YourTimeMatters
 FEED_URL = f"https://www.youtube.com/feeds/videos.xml?channel_id={CHANNEL_ID}"
 MAX_VIDEOS = 6
-DESCRIPTION_LIMIT = 300
+DESCRIPTION_LIMIT = 420
 OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "videos.json"
 
 NS = {
