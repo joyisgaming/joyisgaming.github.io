@@ -247,6 +247,7 @@ a{ color: inherit; }
 }
 
 .game-card{
+  width:100%;
   text-align:left;
   background: var(--game-navy);
   border: 5px solid var(--game-blue);
@@ -332,6 +333,7 @@ a{ color: inherit; }
 .youtube{ padding: 0 0 70px; text-align:center; }
 
 .yt-card{
+  width:100%;
   text-align:left;
   background: var(--paper);
   border: 5px solid var(--ink);
