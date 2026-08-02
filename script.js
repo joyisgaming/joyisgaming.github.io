@@ -62,9 +62,9 @@ document.addEventListener('keydown', (e) => {
 });
 
 // pulls my latest videos in from videos.json (the action keeps that fresh)
-// and builds both the video grid and the "Recent" pills up top from it
-const NAV_PILL_COUNT = 3;   // how many show up in the top strip
-const GRID_VIDEO_COUNT = 6; // how many show up in the full grid
+// and builds both the video list and the "Recent" pills up top from it
+const NAV_PILL_COUNT = 6;  // matches GRID_VIDEO_COUNT below so Recent shows all of them
+const GRID_VIDEO_COUNT = 6; // how many show up in the full list
 
 function renderVideoGrid(videos) {
   const grid = document.getElementById('videoGrid');
@@ -78,36 +78,48 @@ function renderVideoGrid(videos) {
   if (emptyMsg) emptyMsg.remove();
 
   videos.slice(0, GRID_VIDEO_COUNT).forEach(video => {
-    const card = document.createElement('a');
-    card.className = 'video-card';
-    card.id = `video-${video.id}`;
-    card.href = video.url;
-    card.target = '_blank';
-    card.rel = 'noopener';
+    const row = document.createElement('div');
+    row.className = 'video-row';
+    row.id = `video-${video.id}`;
 
-    const thumbWrap = document.createElement('div');
-    thumbWrap.className = 'video-card__thumb';
+    const thumbLink = document.createElement('a');
+    thumbLink.className = 'video-row__thumb';
+    thumbLink.href = video.url;
+    thumbLink.target = '_blank';
+    thumbLink.rel = 'noopener';
+
     const img = document.createElement('img');
     img.src = video.thumbnail;
     img.alt = video.title;
     img.loading = 'lazy';
-    thumbWrap.appendChild(img);
+    thumbLink.appendChild(img);
+
+    const content = document.createElement('div');
+    content.className = 'video-row__content';
 
     const titleEl = document.createElement('div');
-    titleEl.className = 'video-card__title';
+    titleEl.className = 'video-row__title';
     titleEl.textContent = video.title;
-
-    card.appendChild(thumbWrap);
-    card.appendChild(titleEl);
+    content.appendChild(titleEl);
 
     if (video.description) {
-      const descEl = document.createElement('div');
-      descEl.className = 'video-card__desc';
+      const descEl = document.createElement('p');
+      descEl.className = 'video-row__desc';
       descEl.textContent = video.description;
-      card.appendChild(descEl);
+      content.appendChild(descEl);
     }
 
-    grid.appendChild(card);
+    const watchLink = document.createElement('a');
+    watchLink.className = 'video-row__watch';
+    watchLink.href = video.url;
+    watchLink.target = '_blank';
+    watchLink.rel = 'noopener';
+    watchLink.textContent = 'Click to watch on YouTube →';
+    content.appendChild(watchLink);
+
+    row.appendChild(thumbLink);
+    row.appendChild(content);
+    grid.appendChild(row);
   });
 }
 
