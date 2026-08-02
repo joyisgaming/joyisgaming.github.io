@@ -8,6 +8,7 @@ normally it just runs on a schedule via .github/workflows/update-videos.yml
 """
 
 import json
+import re
 import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -29,6 +30,11 @@ NS = {
 # per-video text shows up on the site
 PROMO_ANCHOR = "jokesonyouisuck.itch.io/system-siege"
 
+# some descriptions have a long "====...====" divider further down (before
+# timestamps/links/whatever) - cut everything from there onward so it
+# doesn't bloat the excerpt on the site
+SEPARATOR_PATTERN = re.compile(r"=\s*={9,}")
+
 
 def strip_promo(description: str) -> str:
     if not description:
@@ -47,6 +53,13 @@ def strip_promo(description: str) -> str:
     return "\n".join(lines[i:]).strip()
 
 
+def cut_at_separator(text: str) -> str:
+    match = SEPARATOR_PATTERN.search(text)
+    if match:
+        return text[:match.start()].strip()
+    return text
+
+
 def truncate(text: str, limit: int = DESCRIPTION_LIMIT) -> str:
     text = text.strip()
     if len(text) <= limit:
@@ -56,6 +69,12 @@ def truncate(text: str, limit: int = DESCRIPTION_LIMIT) -> str:
     if last_space > 0:
         cut = cut[:last_space]
     return cut.rstrip() + "…"
+
+
+def clean_thumbnail(url: str) -> str:
+    # hqdefault is 4:3 with letterboxing baked in - mqdefault is true 16:9
+    # and just about always available, so swap it regardless of source
+    return url.replace("hqdefault", "mqdefault")
 
 
 def fetch_feed(url: str) -> bytes:
@@ -78,7 +97,7 @@ def parse_feed(xml_bytes: bytes) -> list[dict]:
             continue
 
         video_id = video_id_el.text
-        thumbnail_url = f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
+        thumbnail_url = f"https://i.ytimg.com/vi/{video_id}/mqdefault.jpg"
         raw_description = ""
         if media_group is not None:
             thumb_el = media_group.find("media:thumbnail", NS)
@@ -89,7 +108,8 @@ def parse_feed(xml_bytes: bytes) -> list[dict]:
             if desc_el is not None and desc_el.text:
                 raw_description = desc_el.text
 
-        description = truncate(strip_promo(raw_description))
+        thumbnail_url = clean_thumbnail(thumbnail_url)
+        description = truncate(cut_at_separator(strip_promo(raw_description)))
 
         videos.append({
             "id": video_id,
