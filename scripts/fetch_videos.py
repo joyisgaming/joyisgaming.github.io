@@ -77,10 +77,33 @@ def clean_thumbnail(url: str) -> str:
     return url.replace("hqdefault", "mqdefault")
 
 
-def fetch_feed(url: str) -> bytes:
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=20) as resp:
-        return resp.read()
+import gzip
+
+def fetch_feed(feed_url):
+    """Fetch YouTube feed with browser headers."""
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/atom+xml, application/rss+xml, application/xml;q=0.9, */*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate',
+        'Connection': 'keep-alive',
+        'Referer': 'https://www.youtube.com/'
+    }
+    
+    try:
+        request = urllib.request.Request(feed_url, headers=headers)
+        response = urllib.request.urlopen(request)
+        xml_bytes = response.read()
+        
+        # Decompress gzip-encoded response
+        xml_bytes = gzip.decompress(xml_bytes)
+        
+        return xml_bytes
+        
+    except urllib.error.HTTPError as e:
+        print(f"HTTP Error {e.code}: {e.reason}")
+        raise
+
 
 
 def parse_feed(xml_bytes: bytes) -> list[dict]:
