@@ -3,7 +3,7 @@ name: Update YouTube videos
 "on":
   schedule:
     # every 24 hours, don't need to touch this
-    - cron: '0 0 * * *'
+    - cron: '0 21 * * *'
   workflow_dispatch: {}   # so I can hit "run workflow" manually when I want
 
 permissions:
