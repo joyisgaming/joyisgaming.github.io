@@ -222,7 +222,7 @@ def main():
         print("Feed fetch failed. Check data/fetch_log.json for details.")
         return
     
-    root = ElementTree.fromstring(xml_bytes)
+    # root = ET.fromstring(xml_bytes)
     
     videos = parse_feed(xml_bytes)
 
