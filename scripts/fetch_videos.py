@@ -78,8 +78,76 @@ def clean_thumbnail(url: str) -> str:
 
 
 import gzip
+import time
+import random
+import json
+from datetime import datetime
 
-def fetch_feed(feed_url):
+def log_event(status, message):
+    """Append event to logs file."""
+    log_file = 'data/fetch_log.json'
+    log_entry = {
+        'timestamp': datetime.utcnow().isoformat(),
+        'status': status,
+        'message': message
+    }
+    
+    try:
+        with open(log_file, 'r') as f:
+            logs = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        logs = []
+    
+    logs.append(log_entry)
+    # Keep last 100 entries
+    logs = logs[-100:]
+    
+    with open(log_file, 'w') as f:
+        json.dump(logs, f, indent=2)
+
+
+def fetch_feed(feed_url, max_retries=3):
+    """Fetch YouTube feed with browser headers and retry logic."""
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/atom+xml, application/rss+xml, application/xml;q=0.9, */*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate',
+        'Connection': 'keep-alive',
+        'Referer': 'https://www.youtube.com/'
+    }
+    
+    for attempt in range(max_retries):
+        try:
+            request = urllib.request.Request(feed_url, headers=headers)
+            response = urllib.request.urlopen(request)
+            xml_bytes = response.read()
+            
+            # Decompress gzip-encoded response
+            xml_bytes = gzip.decompress(xml_bytes)
+            
+            log_event('success', f'Successfully fetched feed on attempt {attempt + 1}')
+            return xml_bytes
+            
+        except urllib.error.HTTPError as e:
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) + random.uniform(0, 1)
+                log_event('retry', f'HTTP Error {e.code}: {e.reason}. Retrying in {wait_time:.1f}s (attempt {attempt + 1}/{max_retries})')
+                time.sleep(wait_time)
+            else:
+                log_event('failure', f'HTTP Error {e.code}: {e.reason} (failed after {max_retries} attempts)')
+                # Don't raise — return None to skip update silently
+                return None
+        except Exception as e:
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) + random.uniform(0, 1)
+                log_event('retry', f'Error: {str(e)}. Retrying in {wait_time:.1f}s (attempt {attempt + 1}/{max_retries})')
+                time.sleep(wait_time)
+            else:
+                log_event('failure', f'Unexpected error (failed after {max_retries} attempts): {str(e)}')
+                return None
+
+def fetch_feed_x(feed_url):
     """Fetch YouTube feed with browser headers."""
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -148,6 +216,14 @@ def parse_feed(xml_bytes: bytes) -> list[dict]:
 
 def main():
     xml_bytes = fetch_feed(FEED_URL)
+    
+    # If fetch failed, skip silently (error was logged)
+    if xml_bytes is None:
+        print("Feed fetch failed. Check data/fetch_log.json for details.")
+        return
+    
+    root = ElementTree.fromstring(xml_bytes)
+    
     videos = parse_feed(xml_bytes)
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
